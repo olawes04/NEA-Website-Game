@@ -58,6 +58,9 @@ function draw() {
     }
     if(y> canvas.height|| y< 5) {
         dy = -dy;
+        // if(dy!=-1) { CURRENTLY BROKEN WILL FIX LATER
+        //   dy=-1
+        // }
     }
   //Updates the colour
   colour="rgb("+red+","+green+","+blue+")"
@@ -66,3 +69,16 @@ setInterval(draw, 0);
 
 draw()
   //to draw the circle
+
+function down(){
+  dy+=3
+  console.log("If you are reading this I have died at sea");
+}
+
+
+
+function movementUp(){
+  dy-=3
+  setTimeout(down,500);
+}
+// movementUp();
