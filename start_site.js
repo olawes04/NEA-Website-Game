@@ -16,6 +16,8 @@ var redChange=1
 var greenChange=1
 var blueChange=1
 var onGround=false
+var bounce=0
+var bounced=false
 
 //Draws the square
 function draw() {
@@ -58,8 +60,24 @@ function draw() {
         dx = -dx;
     }
     if(y> canvas.height-50) {
-        dy = 0;
+      console.log(bounced);
+      if (bounced==false){
+        if(bounce!=3 ){
+          bounce+=1
+          dy=-dy/2
+          onGround=false
+          
+        }
+        else if (bounce==3){
+          bounced=true
+        }
+      }
+      else{
+        dy=0
+        bounce=0
         onGround=true
+        bounced=true
+      }
     }
     if (y>canvas.height-51){
       onGround=false
@@ -69,7 +87,7 @@ function draw() {
     }
     if (onGround==false){
       dy+=0.02;
-      console.log(dy);
+      //console.log(dy);
     }
 
     if (y< 0) {
@@ -89,15 +107,17 @@ draw()
   //to draw the circle
 
 function down(){
-  console.log("If you are reading this I have died at sea");
+  //console.log("If you are reading this I have died at sea");
 }
 
 function movementUp(){
   dy-=3
-  
+  bounced=false
+  console.log(bounced);
+
   //setTimeout(down,500);
 }
 
-// canvas.addEventListener("keydown", (d)=>{
-//   console.log("")
+//canvas.addEventListener("keydown", (d)=>{
+//  console.log("aaaaa")
 // })
