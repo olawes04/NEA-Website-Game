@@ -1,8 +1,8 @@
 var canvas = document.getElementById("game_window");
 var sqt = canvas.getContext("2d");
 //Starting Position
-var x=100
-var y=100
+var x=30
+var y=30
 //Speed
 var dx=1.0
 var dy=-1.0
@@ -19,6 +19,10 @@ var onGround=false
 //No of Bounces and whether or not the bounces are primed for the next jump
 var bounce=0
 var bounced=false
+xOrb=50
+yOrb=50  
+
+
 
 //Draws the square
 function draw() {
@@ -112,8 +116,8 @@ function draw() {
 
 setInterval(draw, 0);
 
-draw()
-  //to draw the circle
+// draw()
+//   //to draw the circle
 
 function down(){
   //console.log("If you are reading this I have died at sea");
@@ -128,6 +132,34 @@ function movementUp(){
   //setTimeout(down,500);
 }
 
-//canvas.addEventListener("keydown", (d)=>{
-//  console.log("aaaaa")
-// })
+canvas.addEventListener("keydown", (d)=>{
+ console.log("aaaaa")
+})
+
+function evilOrb(){
+  xOrb=Math.floor(Math.random()*canvas.width)
+  yOrb=Math.floor(Math.random()*canvas.height)
+  sqt.beginPath();
+  sqt.rect(xOrb, yOrb, 50, 50);
+  sqt.fillStyle = colour;
+  sqt.fill();
+  sqt.closePath();
+  console.log("If you see this it's breaking in an even more annoying way");
+}
+evilOrb()
+evilOrb()
+evilOrb()
+evilOrb()
+evilOrb()
+evilOrb()
+evilOrb()
+evilOrb()
+evilOrb()
+evilOrb()
+evilOrb()
+evilOrb()
+evilOrb()
+evilOrb()
+evilOrb()
+evilOrb()
+
