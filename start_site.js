@@ -1,109 +1,169 @@
-Skip to main contentAccessibility help
-Accessibility feedback
-biometric authentication meaning
+var canvas = document.getElementById("game_window");
+var sqt = canvas.getContext("2d");
+//Starting Position
+var x=30
+var y=30
+//Speed
+var dx=1.0
+var dy=-1.0
+//Starting Colours, Now Randomised! Except not really as it doesn't seem like it's true random
+var red=Math.floor(Math.random()*255+1)
+var green=Math.floor(Math.random()*255+1)
+var blue=Math.floor(Math.random()*255+1)
+var colour="rgb("+red+","+green+","+blue+")"
+//Rate of Colour Change, breaks if greater than 1
+var redChange=1
+var greenChange=1
+var blueChange=1
+var onGround=false
+//No of Bounces and whether or not the bounces are primed for the next jump
+var bounce=0
+var bounced=false
+xOrb=50
+yOrb=50  
+var notEvilOrbs =[]
 
-Sign in
-All
-Images
-Videos
-News
-Web
-Books
-Maps
-More
-Tools
-In Telugu
-In Hindi
-In Malayalam
-Biometric authentication refers to a cybersecurity process that verifies a user's identity using their unique biological traits such as fingerprints, voices, retinas, and facial features. Biometric authentication systems store this information in order to verify a user's identity when that user accesses their account.
 
-What is Biometric Authentication and How Does It Work?
+//Draws the square
+function draw() {
+  //Clears the square's "tail"
+    //sqt.clearRect(0, 0, canvas.width, canvas.height);
+    sqt.beginPath();
+    //Defines the square's size
+    sqt.rect(x, y, 50, 50);
+    sqt.fillStyle = colour;
+    sqt.fill();
+    sqt.closePath();
+    //actually makes the square move
+    x+=dx
+    y+=dy
+    //actually changes the colour variables
+    red+=redChange
+    green+=greenChange  
+    blue+=blueChange
+    //Changes the rate of colour change if the colours have reached their maximum or minimum value
+    if(red==255){
+      redChange=-1;
+    }
+    if (red==0){
+      redChange=1;
+    }
+    if (green==255){
+      greenChange=-1;
+    }
+    if (green==0){
+      greenChange=1;
+    }
+    if (blue==255){
+      blueChange=-1;
+    }
+    if (blue==0){
+      blueChange=1;
+    }
+    // Check for if the square has hit the boundary and reverses the movement if it has
+    if(x> canvas.width-50 || x< 0) {
+        dx = -dx;
+    }
 
-LoginTC
-https://www.logintc.com › types-of-authentication › bio...
-About featured snippets
-•
-Feedback
-People also ask
-What is an example of biometric authentication?
-How do I enable biometric authentication?
-What is the biometric authentication process?
-What are the 5 main types of biometric authentication?
-Feedback
+    //Collision code for the square, If the square is within the x bound and the y bound of the square then both velocities are reversed, this isn't quite what I want but I'll come back to it later
+    if((x<xOrb+50 && x>xOrb-50) && (y<yOrb+50 && y>yOrb-50)) {
+      dx = -dx;
+      dy=-dy;
+    }
 
-What is biometric authentication? | Definition from TechTarget
+    //This is the bounce code, it isn't perfect and sometimes the square j
+    if(y> canvas.height-50) {
+      console.log(bounced);
+      if (bounced==false){
+        if(bounce!=3 ){
+          bounce+=1
+          dy=-dy/2
+          onGround=false
+          
+        }
+        else if (bounce==3){
+          bounced=true
+        }
+      }
+      else{
+        dy=0
+        bounce=0
+        onGround=true
+        bounced=true
+      }
+    }
+    //More Boundary Checkers
+    if (y>canvas.height-51){
+      onGround=false
+    }
+    if (y> canvas.height-49){
+      y=canvas.height-50;
+    }
+    if (onGround==false){
+      dy+=0.02;
+      //console.log(dy);
+    }
 
-TechTarget
-https://www.techtarget.com › searchsecurity › biometric...
-Biometric authentication is a security process that relies on the unique biological characteristics of individuals to verify they are who they say they are.
+    if (y< 0) {
+      y=0;
+      console.log(dy);
+      onGround=false;
 
-Biometric Authentication - Definition, FAQs
+    }
 
-Innovatrics
-https://www.innovatrics.com › Glossary
-Biometric authentication is a technology that uses biological characteristics to verify a person's identity and grant access to secure systems or locations.
+  //Updates the colour
+  colour="rgb("+red+","+green+","+blue+")"
+  document.getElementById("blueColorValue").innerHTML="Blue RGB Value is:"+blue;
+  document.getElementById("redColorValue").innerHTML="Red RGB Value is:"+red;
+  document.getElementById("greenColorValue").innerHTML="Green RGB Value is:"+green;
+  document.getElementById("xVelocityValue").innerHTML="The X Velocity is:"+dx;
+  document.getElementById("yVelocityValue").innerHTML="The Y Velocity is:"+dy;
+  document.getElementById("bouncesHTML").innerHTML="The Number of bounces is:"+bounce;
+ }
 
-Biometric Authentication: Good, Bad, & Ugly | OneLogin
+setInterval(draw, 0);
 
-onelogin.com
-https://www.onelogin.com › learn › biometric-authentica...
-In traditional systems, this information is passwords. In biometric authentication, this information is defined as physical or behavioral traits.
+// draw()
+//   //to draw the circle
 
-What is Biometric Authentication? Use Cases, Pros & Cons
+function down(){
+  //console.log("If you are reading this I have died at sea");
+}
+//This controls the velocity that the square moves at when the mouse is clicked as well as resetting the bounce
+function movementUp(){
+  dy-=3
+  bounced=false
+  console.log(bounced);
+  bounce=0
 
-OneSpan
-https://www.onespan.com › topics › biometric-authentic...
-Biometric authentication is a concept in data security. Biometric authentication solutions create a data-generated model that represents the individual.
+  //setTimeout(down,500);
+}
 
-Understanding biometrics
+canvas.addEventListener("keydown", (d)=>{
+ console.log("aaaaa")
+})
 
-National Cyber Security Centre
-https://www.ncsc.gov.uk › collection › understanding-b...
-Biometrics may be used to improve the security, convenience or the efficiency of interactions with a verification system.
+function evilOrb(){
+  xOrb=Math.floor(Math.random()*canvas.width)
+  yOrb=Math.floor(Math.random()*canvas.height)
+  sqt.beginPath();
+  sqt.rect(xOrb, yOrb, 50, 50);
+  sqt.fillStyle = colour;
+  sqt.fill();
+  sqt.closePath();
+  console.log("If you see this it's breaking in an even more annoying way");
 
-Biometrics: definition, use cases, latest news
 
-Thales
-https://www.thalesgroup.com › government › inspired
-Biometrics is the most suitable means of identifying and authenticating individuals in a reliable and fast way through unique biological characteristics.
+}
+for(let i=0; i<300;i++){
+  let tempOrb=new NotEvilOrb();
+  notEvilOrbs.push(tempOrb);
+  console.log("Orbs have been made");
+}
+class NotEvilOrb{
+  constructor(){
+    this.xOrb=Math.floor(Math.random()*canvas.width);
+    this.yOrb=Math.floor(Math.random()*canvas.height);
+  }
 
-What Is Biometric Authentication? Definition, Benefits, and ...
-
-Spiceworks
-https://www.spiceworks.com › Articles
-29 Jul 2021 — Biometric authentication is defined as a security measure that matches the biometric features of a user looking to access a device or a system.
-
-What is Biometrics? How is it used in security?
-
-Kaspersky
-https://www.kaspersky.com › resource-center › definitions
-Biometrics are the biological measurements or physical characteristics that can be used to identify individuals. Learn about its safety concerns and pros ...
-
-Biometric Authentication - an overview
-
-ScienceDirect.com
-https://www.sciencedirect.com › topics › computer-science
-Biometric authentication is defined as the process of verifying individuals based on unique biological characteristics, such as retina patterns.
-People also search for
-Biometric authentication methods
-Biometric authentication examples
-What is biometric authentication in mobile
-Biometric authentication advantages and disadvantages
-Biometric authentication fingerprint
-How to enable biometric authentication on Android
-Biometric authentication in cyber security
-How does biometric authentication work
-1	
-2
-3
-4
-5
-6
-7
-8
-9
-10
-Next
-United Kingdom
-Hereford - Based on your past activity
- - Update location
+}
