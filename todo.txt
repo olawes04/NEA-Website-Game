@@ -1,0 +1,5 @@
+Figure out how to make JS call an image file instead of the square
+Start creating an obstacle
+Points?
+Record more evidence
+Do the writeup
