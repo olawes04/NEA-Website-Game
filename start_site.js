@@ -1,13 +1,8 @@
 var canv2 = document.getElementById("game_window");
 var sqt = canv2.getContext("2d");
 //Starting Position
-<<<<<<< HEAD
 var x=70
 var y=700
-=======
-var x=30
-var y=30
->>>>>>> 05c0dadd7d16419b8efcd4ee065854c266ac8a56
 //Speed
 var dx=1.0
 var dy=-1.0
@@ -25,13 +20,7 @@ var onGround=false
 var bounce=0
 var bounced=false
 xOrb=50
-<<<<<<< HEAD
 yOrb=50
-
-=======
-yOrb=50  
-var notEvilOrbs =[]
->>>>>>> 05c0dadd7d16419b8efcd4ee065854c266ac8a56
 
 
 //Draws the square
@@ -71,11 +60,7 @@ function draw() {
       blueChange=1;
     }
     // Check for if the square has hit the boundary and reverses the movement if it has
-<<<<<<< HEAD
     if(x> canv2.width-50 || x< 0) {
-=======
-    if(x> canvas.width-50 || x< 0) {
->>>>>>> 05c0dadd7d16419b8efcd4ee065854c266ac8a56
         dx = -dx;
     }
 
@@ -86,11 +71,7 @@ function draw() {
     }
 
     //This is the bounce code, it isn't perfect and sometimes the square j
-<<<<<<< HEAD
     if(y> canv2.height-50) {
-=======
-    if(y> canvas.height-50) {
->>>>>>> 05c0dadd7d16419b8efcd4ee065854c266ac8a56
       console.log(bounced);
       if (bounced==false){
         if(bounce!=3 ){
@@ -111,19 +92,11 @@ function draw() {
       }
     }
     //More Boundary Checkers
-<<<<<<< HEAD
     if (y>canv2.height-51){
       onGround=false
     }
     if (y> canv2.height-49){
       y=canv2.height-50;
-=======
-    if (y>canvas.height-51){
-      onGround=false
-    }
-    if (y> canvas.height-49){
-      y=canvas.height-50;
->>>>>>> 05c0dadd7d16419b8efcd4ee065854c266ac8a56
     }
     if (onGround==false){
       dy+=0.02;
@@ -165,22 +138,13 @@ function movementUp(){
   //setTimeout(down,500);
 }
 
-<<<<<<< HEAD
 canv2.addEventListener("keydown", (d)=>{
-=======
-canvas.addEventListener("keydown", (d)=>{
->>>>>>> 05c0dadd7d16419b8efcd4ee065854c266ac8a56
  console.log("aaaaa")
 })
 
 function evilOrb(){
-<<<<<<< HEAD
   xOrb=Math.floor(Math.random()*canv2.width)
   yOrb=Math.floor(Math.random()*canv2.height)
-=======
-  xOrb=Math.floor(Math.random()*canvas.width)
-  yOrb=Math.floor(Math.random()*canvas.height)
->>>>>>> 05c0dadd7d16419b8efcd4ee065854c266ac8a56
   sqt.beginPath();
   sqt.rect(xOrb, yOrb, 50, 50);
   sqt.fillStyle = colour;
@@ -190,7 +154,6 @@ function evilOrb(){
 
 
 }
-<<<<<<< HEAD
   
 evilOrb()
 
@@ -210,17 +173,3 @@ evilOrb()
 //   const notEvilOrbs=new NotEvilOrb((xOrb=Math.floor(Math.random()*canv2.width)),(yOrb=Math.floor(Math.random()*canv2.height)))
 //   orbs.push(notEvilOrbs )
 // };
-=======
-for(let i=0; i<300;i++){
-  let tempOrb=new NotEvilOrb();
-  notEvilOrbs.push(tempOrb);
-  console.log("Orbs have been made");
-}
-class NotEvilOrb{
-  constructor(){
-    this.xOrb=Math.floor(Math.random()*canvas.width);
-    this.yOrb=Math.floor(Math.random()*canvas.height);
-  }
-
-}
->>>>>>> 05c0dadd7d16419b8efcd4ee065854c266ac8a56
