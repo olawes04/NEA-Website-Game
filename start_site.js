@@ -21,6 +21,8 @@ var bounce=0
 var bounced=false
 xOrb=50
 yOrb=50
+var obstacleX=50
+var obstacleY=50
 
 
 //Draws the square
@@ -65,10 +67,7 @@ function draw() {
     }
 
     //Collision code for the square, If the square is within the x bound and the y bound of the square then both velocities are reversed, this isn't quite what I want but I'll come back to it later
-    if((x<xOrb+50 && x>xOrb-50) && (y<yOrb+50 && y>yOrb-50)) {
-      dx = -dx;
-      dy=-dy;
-    }
+
 
     //This is the bounce code, it isn't perfect and sometimes the square j
     if(y> canv2.height-50) {
@@ -157,19 +156,39 @@ function evilOrb(){
   
 evilOrb()
 
-// for(let i=0; i<300;i++){
-//   let tempOrb=new NotEvilOrb();
-//   notEvilOrbs.push(tempOrb);
-//   console.log("Orbs have been made");
-// };
+class notEvilOrb{
+  constructor(xOrb, yOrb){
+    this.xOrb=xOrb;
+    this.yOrb=yOrb;
+  }
+  drawNotEvilOrb(){
+    sqt.beginPath();
+    //Defines the square's size
+    sqt.rect(xOrb, yOrb, obstacleX, obstacleY);
+    sqt.fillStyle = colour;
+    sqt.fill();
+    sqt.closePath();
+  }
+  isColliding(x,y){
+    if((x<xOrb+obstacleX && x>xOrb-obstacleX) && (y<yOrb+obstacleY && y>yOrb-obstacleY)) {
+      dx = -dx;
+      dy=-dy;
+  }
+  }
+}
 
-// // const orbLocation=[
-// //   {xOrb:Math.floor(Math.random()*canv2.width), yOrb:Math.floor(Math.random()*canv2.height)}
-// // ];
+const orbs = [];
+const numberOfOrbs = 10;
 
-// let orbs=[];
+for (let i=0; i<numberOfOrbs; i++){
+  const xOrb=math.random()*(canv2.width-2*obstacleX);
+  const yOrb=math.random()*(canv2.height-2*obstacleY);
+  orbs.push(new notEvilOrb(xOrb, yOrb))
+}
 
-// for(let i=0; i<10; i++){
-//   const notEvilOrbs=new NotEvilOrb((xOrb=Math.floor(Math.random()*canv2.width)),(yOrb=Math.floor(Math.random()*canv2.height)))
-//   orbs.push(notEvilOrbs )
-// };
+function drawOrb(){
+  for (let j=i+1; j<orbs.length; j++){
+    isColliding(j)
+  }
+}
+setInterval(drawOrb, 0);
