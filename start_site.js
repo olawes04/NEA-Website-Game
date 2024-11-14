@@ -3,7 +3,7 @@ var sqt = canv2.getContext("2d");
 //Starting Position
 var x=70
 var y=700
-//Speed
+//Speed...
 var dx=1.0
 var dy=-1.0
 //Starting Colours, Now Randomised! Except not really as it doesn't seem like it's true random
