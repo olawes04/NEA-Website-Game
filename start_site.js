@@ -1,28 +1,33 @@
-var canvas = document.getElementById("game_window");
-var sqt = canvas.getContext("2d");
+var canv2 = document.getElementById("game_window");
+var sqt = canv2.getContext("2d");
 //Starting Position
-var x=100
-var y=100
+var x=70
+var y=700
 //Speed
 var dx=1.0
 var dy=-1.0
-//Starting Colours
-var red=2
-var green=124
-var blue=34
+//Starting Colours, Now Randomised! Except not really as it doesn't seem like it's true random
+var red=Math.floor(Math.random()*255+1)
+var green=Math.floor(Math.random()*255+1)
+var blue=Math.floor(Math.random()*255+1)
 var colour="rgb("+red+","+green+","+blue+")"
 //Rate of Colour Change, breaks if greater than 1
 var redChange=1
 var greenChange=1
 var blueChange=1
 var onGround=false
+//No of Bounces and whether or not the bounces are primed for the next jump
 var bounce=0
 var bounced=false
+xOrb=50
+yOrb=50
+
+
 
 //Draws the square
 function draw() {
   //Clears the square's "tail"
-    //sqt.clearRect(0, 0, canvas.width, canvas.height);
+    //sqt.clearRect(0, 0, canv2.width, canv2.height);
     sqt.beginPath();
     //Defines the square's size
     sqt.rect(x, y, 50, 50);
@@ -56,11 +61,18 @@ function draw() {
       blueChange=1;
     }
     // Check for if the square has hit the boundary and reverses the movement if it has
-    if(x> canvas.width-50 || x< 0) {
+    if(x> canv2.width-50 || x< 0) {
         dx = -dx;
     }
-    //This is the bounce code, it isn't perfect and sometimes the square just doesn't bounce, but it's also the best I can do right now, I'll probably come back later
-    if(y> canvas.height-50) {
+
+    //Collision code for the square, If the square is within the x bound and the y bound of the square then both velocities are reversed, this isn't quite what I want but I'll come back to it later
+    if((x<xOrb+50 && x>xOrb-50) && (y<yOrb+50 && y>yOrb-50)) {
+      dx = -dx;
+      dy=-dy;
+    }
+
+    //This is the bounce code, it isn't perfect and sometimes the square j
+    if(y> canv2.height-50) {
       console.log(bounced);
       if (bounced==false){
         if(bounce!=3 ){
@@ -80,11 +92,12 @@ function draw() {
         bounced=true
       }
     }
-    if (y>canvas.height-51){
+    //More Boundary Checkers
+    if (y>canv2.height-51){
       onGround=false
     }
-    if (y> canvas.height-49){
-      y=canvas.height-50;
+    if (y> canv2.height-49){
+      y=canv2.height-50;
     }
     if (onGround==false){
       dy+=0.02;
@@ -100,25 +113,64 @@ function draw() {
 
   //Updates the colour
   colour="rgb("+red+","+green+","+blue+")"
+  document.getElementById("blueColorValue").innerHTML="Blue RGB Value is:"+blue;
+  document.getElementById("redColorValue").innerHTML="Red RGB Value is:"+red;
+  document.getElementById("greenColorValue").innerHTML="Green RGB Value is:"+green;
+  document.getElementById("xVelocityValue").innerHTML="The X Velocity is:"+dx;
+  document.getElementById("yVelocityValue").innerHTML="The Y Velocity is:"+dy;
+  document.getElementById("bouncesHTML").innerHTML="The Number of bounces is:"+bounce;
  }
 
 setInterval(draw, 0);
 
-draw()
-  //to draw the circle
+// draw()
+//   //to draw the circle
 
 function down(){
   //console.log("If you are reading this I have died at sea");
 }
-
+//This controls the velocity that the square moves at when the mouse is clicked as well as resetting the bounce
 function movementUp(){
   dy-=3
   bounced=false
   console.log(bounced);
+  bounce=0
 
   //setTimeout(down,500);
 }
 
-//canvas.addEventListener("keydown", (d)=>{
-//  console.log("aaaaa")
-// })
+canv2.addEventListener("keydown", (d)=>{
+ console.log("aaaaa")
+})
+
+function evilOrb(){
+  xOrb=Math.floor(Math.random()*canv2.width)
+  yOrb=Math.floor(Math.random()*canv2.height)
+  sqt.beginPath();
+  sqt.rect(xOrb, yOrb, 50, 50);
+  sqt.fillStyle = colour;
+  sqt.fill();
+  sqt.closePath();
+  console.log("If you see this it's breaking in an even more annoying way");
+
+
+}
+  
+evilOrb()
+
+// for(let i=0; i<300;i++){
+//   let tempOrb=new NotEvilOrb();
+//   notEvilOrbs.push(tempOrb);
+//   console.log("Orbs have been made");
+// };
+
+// // const orbLocation=[
+// //   {xOrb:Math.floor(Math.random()*canv2.width), yOrb:Math.floor(Math.random()*canv2.height)}
+// // ];
+
+// let orbs=[];
+
+// for(let i=0; i<10; i++){
+//   const notEvilOrbs=new NotEvilOrb((xOrb=Math.floor(Math.random()*canv2.width)),(yOrb=Math.floor(Math.random()*canv2.height)))
+//   orbs.push(notEvilOrbs )
+// };
