@@ -156,11 +156,14 @@ function evilOrb(){
   
 evilOrb()
 
+//Be aware all the orbs are actually squares because I never changed the original lines when I switched from circles to squares and now I'm afraid of breaking everything
+//Creates the Class notEvilOrb
 class notEvilOrb{
   constructor(xOrb, yOrb){
     this.xOrb=xOrb;
     this.yOrb=yOrb;
   }
+//Should draw the squares with the following parameters, this code should be the same as the code up top
   drawNotEvilOrb(){
     sqt.beginPath();
     //Defines the square's size
@@ -169,23 +172,27 @@ class notEvilOrb{
     sqt.fill();
     sqt.closePath();
   }
+//Another copied bit of code from further up, do I need to pass the other variables in?
   isColliding(x,y){
     if((x<xOrb+obstacleX && x>xOrb-obstacleX) && (y<yOrb+obstacleY && y>yOrb-obstacleY)) {
       dx = -dx;
       dy=-dy;
-  }
+    }
   }
 }
-
+// Creates a constant to hold all the orbs
 const orbs = [];
+//Sets the number of orbs to be made
 const numberOfOrbs = 10;
 
+//Actually creates the orbs through a for statement based on the number of orbs specified a couple lines up. Then pushes them up into orbs
 for (let i=0; i<numberOfOrbs; i++){
   const xOrb=math.random()*(canv2.width-2*obstacleX);
   const yOrb=math.random()*(canv2.height-2*obstacleY);
   orbs.push(new notEvilOrb(xOrb, yOrb))
 }
 
+//
 function drawOrb(){
   for (let j=i+1; j<orbs.length; j++){
     isColliding(j)
