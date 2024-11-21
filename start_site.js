@@ -14,8 +14,11 @@ var onGround
 var bounced
 var xOrb
 var yOrb
-var obstacleY
-
+var evilOrbWidth
+var evilOrbHeight
+// Creates a constant to hold all the orbs
+var orbs = [];
+//var numberOfOrbs = 1;                                       **************** Change later
 function initiate() {
   canv2 = document.getElementById("game_window");
   sqt = canv2.getContext("2d");
@@ -40,8 +43,8 @@ function initiate() {
   bounced = false
   xOrb = 50
   yOrb = 50
-  obstacleX = 50
-  obstacleY = 50
+  evilOrbWidth = 50
+  evilOrbHeight = 50
 }
 //Draws the square
 function draw() {
@@ -173,16 +176,15 @@ function evilOrb() {
 
 }
 
-evilOrb()
 
 //Be aware all the orbs are actually squares because I never changed the original lines when I switched from circles to squares and now I'm afraid of breaking everything
 //Creates the Class notEvilOrb
 class NotEvilOrb {
-  constructor(xOrb, yOrb, obstacleX, obstacleY, colour) {
+  constructor(xOrb, yOrb, evilOrbWidth, evilOrbHeight, colour) {
     this.xOrb = xOrb;
     this.yOrb = yOrb;
-    this.obstacleX = obstacleX;
-    this.obstacleY = obstacleY;
+    this.evilOrbWidth = evilOrbWidth;
+    this.evilOrbHeight = evilOrbHeight;
     this.colour = colour;
   }
 
@@ -190,36 +192,37 @@ class NotEvilOrb {
   draw() {
     sqt.beginPath();
     //Defines the square's size
-    sqt.rect(this.xOrb, this.yOrb, this.obstacleX, this.obstacleY);
+    sqt.rect(this.xOrb, this.yOrb, this.evilOrbWidth, this.evilOrbHeight);
     sqt.fillStyle = this.colour;
     sqt.fill();
     sqt.closePath();
   }
   //Another copied bit of code from further up, do I need to pass the other variables in?
   isColliding(x, y) {
-    if ((x < xOrb + obstacleX && x > xOrb - obstacleX) && (y < yOrb + obstacleY && y > yOrb - obstacleY)) {
+    if ((x < xOrb + evilOrbWidth && x > xOrb - evilOrbWidth) && (y < yOrb + evilOrbHeight && y > yOrb - evilOrbHeight)) {
       dx = -dx;
       dy = -dy;
     }
   }
 }
-// Creates a constant to hold all the orbs
-const orbs = [];
-//Sets the number of orbs to be made
-const numberOfOrbs = 1;
+function makeOrbs(numberOfOrbs){
+  //Sets the number of orbs to be made
 
-//Actually creates the orbs through a for statement based on the number of orbs specified a couple lines up. Then pushes them up into orbs
-for (let i = 0; i < numberOfOrbs; i++) {
-  const xOrb = math.random() * (canv2.width - 2 * obstacleX);
-  const yOrb = math.random() * (canv2.height - 2 * obstacleY);
-  orbs.push(new NotEvilOrb(xOrb, yOrb))
+  //Actually creates the orbs through a for statement based on the number of orbs specified a couple lines up. Then pushes them up into orbs
+  for (let i = 0; i < numberOfOrbs; i++) {
+    var xOrb = Math.random() * (canv2.width - 2 * evilOrbWidth);
+    var yOrb = Math.random() * (canv2.height - 2 * evilOrbHeight);
+    orbs.push(new NotEvilOrb(xOrb, yOrb, evilOrbWidth, evilOrbHeight, colour))
+  }
 }
-
 function drawOrb() {
   for (let j = i + 1; j < orbs.length; j++) {
     isColliding(j)
+    console.log("Inside DrawOrb Will Draw Orbs later")
   }
 }
-var testOrb = new NotEvilOrb(250, 300, 50, 50, colour)
-testOrb.draw()
+function testDrawOrb(){
+  var testOrb = new NotEvilOrb(250, 300, 50, 50, colour)
+  testOrb.draw()
+}
 
