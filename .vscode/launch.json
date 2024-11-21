@@ -5,10 +5,11 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "msedge",
+            "name": "Launch Chrome",
             "request": "launch",
-            "name": "Open HTML.HTML",
-            "file": "c:\\Users\\19123507\\Documents\\Code\\Repos\\NEA-Website-Game\\HTML.HTML"
+            "type": "chrome",
+            "url": "http://localhost:8080",
+            "file": "${workspaceFolder}/index.html"
         }
     ]
 }
