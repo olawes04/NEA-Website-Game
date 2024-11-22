@@ -41,13 +41,15 @@ function initiate() {
   //No of Bounces and whether or not the bounces are primed for the next jump
   bounce = 0
   bounced = false
+  //EvilOrb Starting Position
   xOrb = 50
   yOrb = 50
+  //EvilOrb Sizing 
   evilOrbWidth = 50
   evilOrbHeight = 50
 }
 //Draws the square
-function draw() {
+function drawSquare() {
   //Clears the square's "tail"
   //sqt.clearRect(0, 0, canv2.width, canv2.height);
   sqt.beginPath();
@@ -141,7 +143,7 @@ function draw() {
   document.getElementById("bouncesHTML").innerHTML = "The Number of bounces is:" + bounce;
 }
 
-setInterval(draw, 0);
+setInterval(drawSquare, 0);
 
 // draw()
 //   //to draw the circle
@@ -222,7 +224,13 @@ function drawOrb() {
   }
 }
 function testDrawOrb(){
-  var testOrb = new NotEvilOrb(250, 300, 50, 50, colour)
+  var testOrb = new NotEvilOrb(500, 1000, 50, 50, colour)
   testOrb.draw()
 }
 
+function SquarePhysics(){
+  draw();
+  drawOrb();
+};
+
+setInterval(SquarePhysics, 0);
