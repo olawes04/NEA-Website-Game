@@ -16,9 +16,10 @@ var xOrb
 var yOrb
 var evilOrbWidth
 var evilOrbHeight
-// Creates a constant to hold all the orbs
+// Creates a global variable to hold all the orbs
 var orbs = [];
-//var numberOfOrbs = 1;                                       **************** Change later
+var numberOfOrbs = 20;                       
+
 function initiate() {
   canv2 = document.getElementById("game_window");
   sqt = canv2.getContext("2d");
@@ -41,12 +42,11 @@ function initiate() {
   //No of Bounces and whether or not the bounces are primed for the next jump
   bounce = 0
   bounced = false
-  //EvilOrb Starting Position
-  xOrb = 50
-  yOrb = 50
+
   //EvilOrb Sizing 
   evilOrbWidth = 50
   evilOrbHeight = 50
+  makeOrbs(numberOfOrbs);
 }
 //Draws the square
 function drawSquare() {
@@ -143,7 +143,6 @@ function drawSquare() {
   document.getElementById("bouncesHTML").innerHTML = "The Number of bounces is:" + bounce;
 }
 
-setInterval(drawSquare, 0);
 
 // draw()
 //   //to draw the circle
@@ -200,13 +199,19 @@ class NotEvilOrb {
     sqt.closePath();
   }
   //Another copied bit of code from further up, do I need to pass the other variables in?
-  isColliding(x, y) {
+  isColliding(x, y, evilOrbHeight, evilOrbWidth) {
+    xOrb=this.xOrb
+    yOrb=this.yOrb
+    console.log("This might be working")
     if ((x < xOrb + evilOrbWidth && x > xOrb - evilOrbWidth) && (y < yOrb + evilOrbHeight && y > yOrb - evilOrbHeight)) {
       dx = -dx;
       dy = -dy;
+      console.log("If you're seeing this and it hasn't reflected then something is wrong")
     }
   }
 }
+
+
 function makeOrbs(numberOfOrbs){
   //Sets the number of orbs to be made
 
@@ -217,20 +222,20 @@ function makeOrbs(numberOfOrbs){
     orbs.push(new NotEvilOrb(xOrb, yOrb, evilOrbWidth, evilOrbHeight, colour))
   }
 }
-function drawOrb() {
-  for (let j = i + 1; j < orbs.length; j++) {
-    isColliding(j)
-    console.log("Inside DrawOrb Will Draw Orbs later")
-  }
-}
+
 function testDrawOrb(){
   var testOrb = new NotEvilOrb(500, 1000, 50, 50, colour)
   testOrb.draw()
 }
 
 function SquarePhysics(){
-  draw();
-  drawOrb();
+  for (let j = 0; j < orbs.length; j++) {
+    orbs[j].draw();
+    orbs[j].isColliding(x, y, evilOrbHeight, evilOrbWidth);
+  }
 };
 
+
+const eOrb= new NotEvilOrb();
+setInterval(drawSquare, 0);
 setInterval(SquarePhysics, 0);
