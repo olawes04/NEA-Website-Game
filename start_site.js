@@ -18,7 +18,7 @@ var evilOrbWidth
 var evilOrbHeight
 // Creates a global variable to hold all the orbs
 var orbs = [];
-var numberOfOrbs = 20;                       
+var numberOfOrbs = 1;                       
 
 function initiate() {
   canv2 = document.getElementById("game_window");
@@ -95,7 +95,7 @@ function drawSquare() {
 
   //This is the bounce code, it isn't perfect and sometimes the square just doesn't bounce
   if (y > canv2.height - 50) {
-    console.log(bounced);
+    //console.log(bounced);
     if (bounced == false) {
       if (bounce != 3) {
         bounce += 1
@@ -128,7 +128,7 @@ function drawSquare() {
 
   if (y < 0) {
     y = 0;
-    console.log(dy);
+    //console.log(dy);
     onGround = false;
 
   }
@@ -147,14 +147,12 @@ function drawSquare() {
 // draw()
 //   //to draw the circle
 
-function down() {
-  //console.log("If you are reading this I have died at sea");
-}
+
 //This controls the velocity that the square moves at when the mouse is clicked as well as resetting the bounce
 function movementUp() {
-  dy -= 3
+  dy = -2
   bounced = false
-  console.log(bounced);
+  //console.log(bounced);
   bounce = 0
 
   //setTimeout(down,500);
@@ -202,11 +200,11 @@ class NotEvilOrb {
   isColliding(x, y, evilOrbHeight, evilOrbWidth) {
     xOrb=this.xOrb
     yOrb=this.yOrb
-    console.log("This might be working")
+    //console.log("This might be working")
     if ((x < xOrb + evilOrbWidth && x > xOrb - evilOrbWidth) && (y < yOrb + evilOrbHeight && y > yOrb - evilOrbHeight)) {
       dx = -dx;
       dy = -dy;
-      console.log("If you're seeing this and it hasn't reflected then something is wrong")
+      //console.log("If you're seeing this and it hasn't reflected then something is wrong")
     }
   }
 }
