@@ -18,7 +18,8 @@ var evilOrbWidth
 var evilOrbHeight
 // Creates a global variable to hold all the orbs
 var orbs = [];
-var numberOfOrbs = 1;                       
+var numberOfOrbs = 10;                   
+var score    
 
 function initiate() {
   canv2 = document.getElementById("game_window");
@@ -47,6 +48,7 @@ function initiate() {
   evilOrbWidth = 50
   evilOrbHeight = 50
   makeOrbs(numberOfOrbs);
+  score=0
 }
 //Draws the square
 function drawSquare() {
@@ -122,7 +124,7 @@ function drawSquare() {
     y = canv2.height - 50;
   }
   if (onGround == false) {
-    dy += 0.02;
+    dy += 0.2;
     //console.log(dy);
   }
 
@@ -141,6 +143,7 @@ function drawSquare() {
   document.getElementById("xVelocityValue").innerHTML = "The X Velocity is:" + dx;
   document.getElementById("yVelocityValue").innerHTML = "The Y Velocity is:" + dy;
   document.getElementById("bouncesHTML").innerHTML = "The Number of bounces is:" + bounce;
+  document.getElementById("scoreHTML").innerHTML = "The current Score is:" + score;
 }
 
 
@@ -150,7 +153,12 @@ function drawSquare() {
 
 //This controls the velocity that the square moves at when the mouse is clicked as well as resetting the bounce
 function movementUp() {
-  dy = -2
+  if (dy>-0.5){
+    dy = -9
+  }
+  else{
+    dy-=1
+  }
   bounced = false
   //console.log(bounced);
   bounce = 0
@@ -215,7 +223,10 @@ function makeOrbs(numberOfOrbs){
 
   //Actually creates the orbs through a for statement based on the number of orbs specified a couple lines up. Then pushes them up into orbs
   for (let i = 0; i < numberOfOrbs; i++) {
-    var xOrb = Math.random() * (canv2.width - 2 * evilOrbWidth);
+    xOrb=1
+    while(xOrb<canv2.width*1/10){
+      var xOrb = Math.random() * (canv2.width * 9/10 - 2 * evilOrbWidth);
+    }
     var yOrb = Math.random() * (canv2.height - 2 * evilOrbHeight);
     orbs.push(new NotEvilOrb(xOrb, yOrb, evilOrbWidth, evilOrbHeight, colour))
   }
@@ -232,8 +243,19 @@ function SquarePhysics(){
     orbs[j].isColliding(x, y, evilOrbHeight, evilOrbWidth);
   }
 };
-
+//
 
 const eOrb= new NotEvilOrb();
 setInterval(drawSquare, 0);
 setInterval(SquarePhysics, 0);
+
+function nextLevel(){
+  if (x+50==canv2.width){
+    sqt.clearRect(0, 0, canv2.width, canv2.height);
+    x=0
+    orbs = []
+    makeOrbs(numberOfOrbs)
+    score+=1
+  }
+}
+setInterval(nextLevel,0)
