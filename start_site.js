@@ -28,7 +28,7 @@ function initiate() {
   x = 70
   y = 700
   //Speed...||
-  dx = 1.0
+  dx = 1.5
   dy = -1.0
   //Starting Colours, Now Randomised! Except not really as it doesn't seem like it's true random
   red = Math.floor(Math.random() * 255 + 1)
@@ -53,7 +53,7 @@ function initiate() {
 //Draws the square
 function drawSquare() {
   //Clears the square's "tail"
-  //sqt.clearRect(0, 0, canv2.width, canv2.height);
+  sqt.clearRect(0, 0, canv2.width, canv2.height);
   sqt.beginPath();
   //Defines the square's size
   sqt.rect(x, y, 50, 50);
@@ -137,9 +137,9 @@ function drawSquare() {
 
   //Updates the colour
   colour = "rgb(" + red + "," + green + "," + blue + ")"
-  document.getElementById("blueColorValue").innerHTML = "Blue RGB Value is:" + blue;
-  document.getElementById("redColorValue").innerHTML = "Red RGB Value is:" + red;
-  document.getElementById("greenColorValue").innerHTML = "Green RGB Value is:" + green;
+ // document.getElementById("blueColorValue").innerHTML = "Blue RGB Value is:" + blue;
+ // document.getElementById("redColorValue").innerHTML = "Red RGB Value is:" + red;
+ // document.getElementById("greenColorValue").innerHTML = "Green RGB Value is:" + green;
   document.getElementById("xVelocityValue").innerHTML = "The X Velocity is:" + dx;
   document.getElementById("yVelocityValue").innerHTML = "The Y Velocity is:" + dy;
   document.getElementById("bouncesHTML").innerHTML = "The Number of bounces is:" + bounce;
@@ -153,12 +153,7 @@ function drawSquare() {
 
 //This controls the velocity that the square moves at when the mouse is clicked as well as resetting the bounce
 function movementUp() {
-  if (dy>-0.5){
     dy = -9
-  }
-  else{
-    dy-=1
-  }
   bounced = false
   //console.log(bounced);
   bounce = 0
