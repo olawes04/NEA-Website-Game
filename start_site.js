@@ -20,7 +20,7 @@ var evilOrbHeight
 var orbs = [];
 var numberOfOrbs = 10;                   
 var score    
-
+true=true
 function initiate() {
   canv2 = document.getElementById("game_window");
   sqt = canv2.getContext("2d");
@@ -28,7 +28,7 @@ function initiate() {
   x = 70
   y = 700
   //Speed...||
-  dx = 1.5
+  dx = 3
   dy = -1.0
   //Starting Colours, Now Randomised! Except not really as it doesn't seem like it's true random
   red = Math.floor(Math.random() * 255 + 1)
@@ -71,7 +71,7 @@ function drawSquare() {
   // Use ORs and inverted variable DO THIS LATER                                                                      *********************
   if (red == 255) {
     redChange = -1;
-  }
+    }
   if (red == 0) {
     redChange = 1;
   }
@@ -120,9 +120,10 @@ function drawSquare() {
   if (y > canv2.height - 51) {
     onGround = false
   }
-  if (y > canv2.height - 49) {
-    y = canv2.height - 50;
-  }
+  //if (y > canv2.height - 49) {
+ //   y = canv2.height - 49;
+
+  //}
   if (onGround == false) {
     dy += 0.2;
     //console.log(dy);
@@ -240,17 +241,39 @@ function SquarePhysics(){
 };
 //
 
+function youDied(){
+  sqt.font="192px Optimus Princeps"
+  sqt.fillStyle="red";
+  sqt.fillText("You Died", 100, 500 )
+}
+function iDied(){
+  alive=false
+}
+
 const eOrb= new NotEvilOrb();
-setInterval(drawSquare, 0);
-setInterval(SquarePhysics, 0);
+function deadOrAlive(){
+  while (true){
+    //if (alive=true){
+    setInterval(drawSquare, 0);
+    setInterval(SquarePhysics, 0);
+    setInterval(nextLevel,0)
+    //}
+    //else{
+    // sqt.clearRect(0, 0, canv2.width, canv2.height);
+    // youDied()
+    // break
+    //}
+  }
+}
 
 function nextLevel(){
-  if (x+50==canv2.width){
+  if (x+50>canv2.width){
     sqt.clearRect(0, 0, canv2.width, canv2.height);
     x=0
     orbs = []
+    numberOfOrbs+=2
     makeOrbs(numberOfOrbs)
     score+=1
   }
 }
-setInterval(nextLevel,0)
+setInterval(deadOrAlive,0)
