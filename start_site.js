@@ -51,8 +51,7 @@ function initiate() {
   makeOrbs(numberOfOrbs);
   score=0
   // touched=false
-
-   
+  
 }
 //Draws the square
 function drawSquare() {
@@ -144,7 +143,7 @@ function drawSquare() {
   colour = "rgb(" + red + "," + green + "," + blue + ")"
  // document.getElementById("blueColorValue").innerHTML = "Blue RGB Value is:" + blue;
  // document.getElementById("redColorValue").innerHTML = "Red RGB Value is:" + red;
- // document.getElementById("greenColorValue").innerHTML = "Green RGB Value is:" + green;
+  document.getElementById("greenColorValue").innerHTML = "Green RGB Value is:" + green;
   document.getElementById("xVelocityValue").innerHTML = "The X Velocity is:" + dx;
   document.getElementById("yVelocityValue").innerHTML = "The Y Velocity is:" + dy;
   document.getElementById("bouncesHTML").innerHTML = "The Number of bounces is:" + bounce;
@@ -258,26 +257,6 @@ function SquarePhysics(){
 };
 //
 
-function youDied(){
-  sqt.font="192px Optimus Princeps"
-  sqt.fillStyle="red";
-  sqt.fillText("You Died", 100, 500 )
-}
-
-
-const eOrb= new NotEvilOrb();
-
-
-setInterval(drawSquare(),10);
-setInterval(SquarePhysics(),33);
-setInterval(nextLevel(),33);
-
-
-
-
-//sqt.clearRect(0, 0, canv2.width, canv2.height);
-//youDied()
-
 function nextLevel(){
   if (x+50>canv2.width){
     sqt.clearRect(0, 0, canv2.width, canv2.height);
@@ -291,3 +270,34 @@ function nextLevel(){
   //   return
   // }
 }
+
+
+function youDied(){
+  sqt.font="192px Optimus Princeps"
+  sqt.fillStyle="red";
+  sqt.fillText("You Died", 100, 500 )
+}
+
+
+
+const eOrb= new NotEvilOrb();
+
+function animateMovement(){
+  drawSquare()
+  SquarePhysics()
+  nextLevel()
+  console.log("Help")
+}
+
+function startGame(){
+  initiate()
+  console.log("Help1b")
+  while (true){
+    console.log("Help2")
+    setTimeout(animateMovement(),33)
+    console.log("Help3")
+  }
+}
+
+
+

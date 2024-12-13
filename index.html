@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-<head onload="initiate()">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="objects.css">
-    <script src="start_site.js"> </script>
     <style>
         *{
             padding: 0%;
@@ -19,14 +18,16 @@
 </head>
 <body  onkeypress="youDied()" >
     <canvas id="game_window" width="1920" height="1080" onclick="movementUp()"></canvas>
+
     <!--<h1 id="redColorValue"></h1>
-    <h1 id="blueColorValue"></h1>
-    <h1 id="greenColorValue"></h1>-->
+    <h1 id="blueColorValue"></h1>-->
+    <h1 id="greenColorValue"></h1>
     <h1 id="xVelocityValue"></h1>
     <h1 id="yVelocityValue"></h1>
     <h1 id="bouncesHTML"></h1>
     <h1 id="scoreHTML"></h1>
-
+    <script src="start_site.js"> </script>
+    <script>startGame()</script>
 </body>
 </html>
 
