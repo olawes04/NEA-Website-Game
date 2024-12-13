@@ -20,7 +20,8 @@ var evilOrbHeight
 var orbs = [];
 var numberOfOrbs = 10;                   
 var score    
-true=true
+// var touched
+
 function initiate() {
   canv2 = document.getElementById("game_window");
   sqt = canv2.getContext("2d");
@@ -49,6 +50,9 @@ function initiate() {
   evilOrbHeight = 50
   makeOrbs(numberOfOrbs);
   score=0
+  // touched=false
+
+   
 }
 //Draws the square
 function drawSquare() {
@@ -120,10 +124,10 @@ function drawSquare() {
   if (y > canv2.height - 51) {
     onGround = false
   }
-  //if (y > canv2.height - 49) {
- //   y = canv2.height - 49;
+  if (y > canv2.height - 49) {
+  //  touched=true
 
-  //}
+  }
   if (onGround == false) {
     dy += 0.2;
     //console.log(dy);
@@ -145,6 +149,9 @@ function drawSquare() {
   document.getElementById("yVelocityValue").innerHTML = "The Y Velocity is:" + dy;
   document.getElementById("bouncesHTML").innerHTML = "The Number of bounces is:" + bounce;
   document.getElementById("scoreHTML").innerHTML = "The current Score is:" + score;
+  // if (touched=true){
+  //   return
+  // }
 }
 
 
@@ -154,7 +161,12 @@ function drawSquare() {
 
 //This controls the velocity that the square moves at when the mouse is clicked as well as resetting the bounce
 function movementUp() {
+  if (dy<-7){
+    dy=dy-3
+  }  
+  else{
     dy = -9
+  }
   bounced = false
   //console.log(bounced);
   bounce = 0
@@ -205,9 +217,11 @@ class NotEvilOrb {
     xOrb=this.xOrb
     yOrb=this.yOrb
     //console.log("This might be working")
+    //If player hits an enemy then the player should die, this is determined by the parameters below which work off of the centre of the squares and their widths
     if ((x < xOrb + evilOrbWidth && x > xOrb - evilOrbWidth) && (y < yOrb + evilOrbHeight && y > yOrb - evilOrbHeight)) {
       dx = -dx;
       dy = -dy;
+     // touched=true
       //console.log("If you're seeing this and it hasn't reflected then something is wrong")
     }
   }
@@ -238,6 +252,9 @@ function SquarePhysics(){
     orbs[j].draw();
     orbs[j].isColliding(x, y, evilOrbHeight, evilOrbWidth);
   }
+  // if (touched==true){
+    // return
+  // }
 };
 //
 
@@ -246,25 +263,20 @@ function youDied(){
   sqt.fillStyle="red";
   sqt.fillText("You Died", 100, 500 )
 }
-function iDied(){
-  alive=false
-}
+
 
 const eOrb= new NotEvilOrb();
-function deadOrAlive(){
-  while (true){
-    //if (alive=true){
-    setInterval(drawSquare, 0);
-    setInterval(SquarePhysics, 0);
-    setInterval(nextLevel,0)
-    //}
-    //else{
-    // sqt.clearRect(0, 0, canv2.width, canv2.height);
-    // youDied()
-    // break
-    //}
-  }
-}
+
+
+setInterval(drawSquare(),10);
+setInterval(SquarePhysics(),33);
+setInterval(nextLevel(),33);
+
+
+
+
+//sqt.clearRect(0, 0, canv2.width, canv2.height);
+//youDied()
 
 function nextLevel(){
   if (x+50>canv2.width){
@@ -275,5 +287,7 @@ function nextLevel(){
     makeOrbs(numberOfOrbs)
     score+=1
   }
+  // if (touched==true){
+  //   return
+  // }
 }
-setInterval(deadOrAlive,0)

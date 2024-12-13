@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head onload="initiate()">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="objects.css">
@@ -17,7 +17,7 @@
         }
     </style>
 </head>
-<body onload="initiate()" onkeypress="iDied()" >
+<body  onkeypress="youDied()" >
     <canvas id="game_window" width="1920" height="1080" onclick="movementUp()"></canvas>
     <!--<h1 id="redColorValue"></h1>
     <h1 id="blueColorValue"></h1>
