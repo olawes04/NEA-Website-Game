@@ -20,7 +20,9 @@ var evilOrbHeight
 var orbs = [];
 var numberOfOrbs = 10;                   
 var score    
-true=true
+var alive
+
+
 function initiate() {
   canv2 = document.getElementById("game_window");
   sqt = canv2.getContext("2d");
@@ -49,6 +51,7 @@ function initiate() {
   evilOrbHeight = 50
   makeOrbs(numberOfOrbs);
   score=0
+  alive = true
 }
 //Draws the square
 function drawSquare() {
@@ -117,8 +120,8 @@ function drawSquare() {
     }
   }
   //More Boundary Checkers
-  if (y > canv2.height - 51) {
-    onGround = false
+  if (y > canv2.height - 45) {
+    youDied()
   }
   //if (y > canv2.height - 49) {
  //   y = canv2.height - 49;
@@ -158,8 +161,6 @@ function movementUp() {
   bounced = false
   //console.log(bounced);
   bounce = 0
-
-  //setTimeout(down,500);
 }
 
 // canv2.addEventListener("keydown", (d) => {
@@ -208,6 +209,7 @@ class NotEvilOrb {
     if ((x < xOrb + evilOrbWidth && x > xOrb - evilOrbWidth) && (y < yOrb + evilOrbHeight && y > yOrb - evilOrbHeight)) {
       dx = -dx;
       dy = -dy;
+      youDied()
       //console.log("If you're seeing this and it hasn't reflected then something is wrong")
     }
   }
@@ -241,29 +243,27 @@ function SquarePhysics(){
 };
 //
 
-function youDied(){
+function deathScreen(){
   sqt.font="192px Optimus Princeps"
   sqt.fillStyle="red";
   sqt.fillText("You Died", 100, 500 )
+  sqt.fillText("Score = "+score, 100, 700)
 }
-function iDied(){
+function youDied(){
   alive=false
 }
 
 const eOrb= new NotEvilOrb();
 function deadOrAlive(){
-  while (true){
-    //if (alive=true){
-    setInterval(drawSquare, 0);
-    setInterval(SquarePhysics, 0);
-    setInterval(nextLevel,0)
-    //}
-    //else{
-    // sqt.clearRect(0, 0, canv2.width, canv2.height);
-    // youDied()
-    // break
-    //}
-  }
+    if (alive==true){
+    drawSquare()
+    SquarePhysics()
+    nextLevel()
+    }
+    else{
+    sqt.clearRect(0, 0, canv2.width, canv2.height);
+    deathScreen()
+    }
 }
 
 function nextLevel(){
