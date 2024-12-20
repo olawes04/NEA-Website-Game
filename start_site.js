@@ -21,6 +21,7 @@ var orbs = [];
 var numberOfOrbs = 10;                   
 var score    
 var alive
+var alteration
 
 
 function initiate() {
@@ -50,8 +51,9 @@ function initiate() {
   evilOrbWidth = 50
   evilOrbHeight = 50
   makeOrbs(numberOfOrbs);
-  score=0
+  score = 0
   alive = true
+  alteration = 0
 }
 //Draws the square
 function drawSquare() {
@@ -249,11 +251,25 @@ function deathScreen(){
   sqt.fillText("You Died", 100, 500 )
   sqt.fillText("Score = "+score, 100, 700)
 }
+
 function youDied(){
   alive=false
 }
 
 const eOrb= new NotEvilOrb();
+
+/**
+ * Function decides and creates the different powerups and debuffs that should appear in each level 
+ */
+function alterations(){
+  // Semi-Randomly decides the powerup for each screen
+  alteration=Math.floor(Math.random() * 10)
+  
+}
+
+/**
+ * Holds all the functions that actually allow the game to work
+ */
 function deadOrAlive(){
     if (alive==true){
     drawSquare()
@@ -261,18 +277,25 @@ function deadOrAlive(){
     nextLevel()
     }
     else{
+    //When the player dies, clears the screen and shows their score while making it very clear that they died
     sqt.clearRect(0, 0, canv2.width, canv2.height);
     deathScreen()
     }
 }
 
+/**
+ * When the player reaches the right boundary of the screen creates new level for the player to continue through
+ */
 function nextLevel(){
   if (x+50>canv2.width){
+    //Clears the screen of the previous enemies' models
     sqt.clearRect(0, 0, canv2.width, canv2.height);
     x=0
     orbs = []
+    //Increases the number of enemies for the next screen by 2
     numberOfOrbs+=2
     makeOrbs(numberOfOrbs)
+    //Increments the score by 1
     score+=1
   }
 }
