@@ -304,23 +304,4 @@ function deadOrAlive(){
   }
 }
 
-//setInterval(deadOrAlive,15)
-
-
-let lastTime = 0;
-const targetFPS = 1;
-const frameDuration = 1000 / targetFPS;
-
-function gameLoop(timestamp) {
-  const deltaTime = timestamp - lastTime;
-  
-  if (deltaTime >= frameDuration) {
-    lastTime = timestamp;
-    deadOrAlive();
-  }
-
-  requestAnimationFrame(gameLoop);
-}
-
-// Start the game loop
-requestAnimationFrame(gameLoop);
+setInterval(deadOrAlive,15)
