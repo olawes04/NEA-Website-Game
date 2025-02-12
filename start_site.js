@@ -72,25 +72,16 @@ function drawSquare() {
   red += redChange
   green += greenChange
   blue += blueChange
-  //Changes the rate of colour change if the colours have reached their maximum or minimum value
-  // Use ORs and inverted variable DO THIS LATER                                                                      *********************
-  if (red == 255) {
-    redChange = -1;
+  //Changes the rate of colour change if the colours have reached their maximum or minimum value                                                                    *********************
+  if (red == 255 | red==0) {
+    redChange = -redChange;
     }
-  if (red == 0) {
-    redChange = 1;
   }
-  if (green == 255) {
-    greenChange = -1;
+  if (green == 255 | green==0) {
+    greenChange = -greenChange;
   }
-  if (green == 0) {
-    greenChange = 1;
-  }
-  if (blue == 255) {
-    blueChange = -1;
-  }
-  if (blue == 0) {
-    blueChange = 1;
+  if (blue == 255 | blue==0) {
+    blueChange = -blueChange;
   }
   // Check for if the square has hit the boundary and reverses the movement if it has
   if (x > canv2.width - 50 || x < 0) {
@@ -245,6 +236,11 @@ function SquarePhysics(){
 };
 //
 
+function alterationPhysics(){
+  
+}
+
+
 function deathScreen(){
   sqt.font="192px Optimus Princeps"
   sqt.fillStyle="red";
@@ -264,6 +260,12 @@ const eOrb= new NotEvilOrb();
 function alterations(){
   // Semi-Randomly decides the powerup for each screen
   alteration=Math.floor(Math.random() * 10)
+    if (alteration==1){
+      // This one should decrease the Speed of the player when it they hit it and then disappear
+    }
+    if (alteration == 2){
+      // This one should increase the size of the player character by 10 (maybe this orb should also be bigger?)
+    }
   
 }
 
@@ -299,4 +301,4 @@ function nextLevel(){
     score+=1
   }
 }
-setInterval(deadOrAlive,0)
+setInterval(deadOrAlive,15)
