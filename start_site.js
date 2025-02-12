@@ -308,7 +308,7 @@ function deadOrAlive(){
 
 
 let lastTime = 0;
-const targetFPS = 60;
+const targetFPS = 1;
 const frameDuration = 1000 / targetFPS;
 
 function gameLoop(timestamp) {
