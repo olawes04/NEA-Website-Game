@@ -269,21 +269,6 @@ function alterations(){
   
 }
 
-/**
- * Holds all the functions that actually allow the game to work
- */
-function deadOrAlive(){
-    if (alive==true){
-    drawSquare()
-    SquarePhysics()
-    nextLevel()
-    }
-    else{
-    //When the player dies, clears the screen and shows their score while making it very clear that they died
-    sqt.clearRect(0, 0, canv2.width, canv2.height);
-    deathScreen()
-    }
-}
 
 /**
  * When the player reaches the right boundary of the screen creates new level for the player to continue through
@@ -301,4 +286,41 @@ function nextLevel(){
     score+=1
   }
 }
-setInterval(deadOrAlive,15)
+
+
+/**
+ * Holds all the functions that actually allow the game to work
+ */
+function deadOrAlive(){
+  if (alive==true){
+  drawSquare()
+  SquarePhysics()
+  nextLevel()
+  }
+  else{
+  //When the player dies, clears the screen and shows their score while making it very clear that they died
+  sqt.clearRect(0, 0, canv2.width, canv2.height);
+  deathScreen()
+  }
+}
+
+//setInterval(deadOrAlive,15)
+
+
+let lastTime = 0;
+const targetFPS = 60;
+const frameDuration = 1000 / targetFPS;
+
+function gameLoop(timestamp) {
+  const deltaTime = timestamp - lastTime;
+  
+  if (deltaTime >= frameDuration) {
+    lastTime = timestamp;
+    deadOrAlive();
+  }
+
+  requestAnimationFrame(gameLoop);
+}
+
+// Start the game loop
+requestAnimationFrame(gameLoop);
