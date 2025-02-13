@@ -75,8 +75,8 @@ function drawSquare() {
   //Changes the rate of colour change if the colours have reached their maximum or minimum value                                                                    *********************
   if (red == 255 | red==0) {
     redChange = -redChange;
-    }
   }
+  
   if (green == 255 | green==0) {
     greenChange = -greenChange;
   }
@@ -304,4 +304,5 @@ function deadOrAlive(){
   }
 }
 
-setInterval(deadOrAlive,15)
+
+  setInterval(deadOrAlive,15)
