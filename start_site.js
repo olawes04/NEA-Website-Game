@@ -6,6 +6,7 @@ var dx
 var dy
 var red
 var blue
+var green
 var colour
 var redChange
 var greenChange
