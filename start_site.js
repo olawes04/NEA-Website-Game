@@ -45,7 +45,6 @@ function initiate() {
   blueChange = 1
   onGround = false
   //No of Bounces and whether or not the bounces are primed for the next jump
-  bounce = 0
   bounced = false
 
   //EvilOrb Sizing 
